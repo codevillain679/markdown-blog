@@ -10,11 +10,30 @@
       integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
       crossorigin="anonymous"
     />
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
     <title>Blog</title>
   </head>
   <body>
+    <script>
+      function searchInput(e){
+        if(event.key == 'Enter') {
+          let content = e.value
+          fetch("/search?content="+content)
+          .then(data => window.location.href = data.url)
+        }
+      }
+    </script>
+
     <div class="container">
       <h1 class="mb-4">Blog Articles</h1>
+
+      <div class="input-group rounded mb-4">
+        <input type="search" class="form-control rounded"placeholder="Search" value="<%= content %>" aria-label="Search" aria-describedby="search-addon" onkeydown="searchInput(this)"/>
+        <span class="input-group-text border-0" id="search-addon">
+        <i class="fas fa-search"></i>
+      </div>
+
       <a href="/articles/new" class="btn btn-success">New Article</a>
 
       <% articles.forEach(article => { %>
